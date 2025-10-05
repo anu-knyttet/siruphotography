@@ -1,0 +1,120 @@
+"use client";
+
+import React from "react";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+// Map of bars that have routes
+const barRoutes: { route: string; name: string; index: number }[] = [
+  { route: "/", name: "Home", index: 0 },
+  { route: "/about", name: "About", index: 10 },
+  { route: "/work", name: "Work", index: 20 },
+  { route: "/contact", name: "Contact", index: 30 },
+  { route: "/blog", name: "Blog", index: 40 },
+];
+
+export default function Navbar() {
+  const NUM_BARS = 41;
+  const [hovered, setHovered] = React.useState<number | null>(null);
+  const [globalHovered, setGlobalHovered] = React.useState<boolean>(false);
+  const maxEssential = 2;
+  const maxNonEssential = 4;
+  const pathName = usePathname();
+  const activeIndex = barRoutes.find((route) => route.route === pathName)?.index ?? null;
+  const parentRef = React.useRef<HTMLDivElement>(null);
+
+  function wGaussian(x: number, mu: number, sigma: number, dipStrength: number = 1) {
+    const t = (x - mu) / sigma;
+    const g = Math.exp(-0.5 * t * t);
+    const cosPart = 1 - dipStrength + dipStrength * Math.cos(2 * t);
+    return g * cosPart;
+  }
+
+  return (
+    <div
+      className="bottom-8 left-1/2 absolute flex flex-col justify-between items-end gap-4 w-128 h-24 -translate-x-1/2"
+      ref={parentRef}
+      onMouseEnter={() => setGlobalHovered(true)}
+      onMouseLeave={() => setGlobalHovered(false)}
+    >
+      <div className="flex flex-row w-full h-full">
+        {Array.from({ length: NUM_BARS }).map((_, i) => {
+          let scaleY = 1;
+
+          // Apply Gaussian scaling based on hovered bar
+          if (hovered !== null) {
+            if (barRoutes.some((route) => route.index === i)) {
+              scaleY = maxEssential;
+            } else {
+              scaleY = 1 + wGaussian(i, hovered, 3, 0.7) * (maxNonEssential - 1);
+              if (scaleY > maxNonEssential) scaleY = maxNonEssential;
+            }
+          }
+
+          // Check if this bar has a route
+          const routeObj = barRoutes.find((route) => route.index === i) ?? null;
+
+          const barContent = (
+            <>
+              <motion.div
+                className={cn(
+                  "after:bottom-0 after:left-1/2 after:absolute relative after:bg-white after:mx-auto w-full after:w-[1.5px] h-full after:content-[''] after:origin-bottom",
+                  routeObj ? "after:h-full" : "after:h-1/6"
+                )}
+                animate={{ scaleY }}
+                style={{ transformOrigin: "bottom" }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                onMouseEnter={() => setHovered(i)}
+                onMouseLeave={() => setHovered(null)}
+              ></motion.div>
+            </>
+          );
+
+          return routeObj ? (
+            <Link key={i} href={routeObj.route} className="relative flex flex-1 justify-center">
+              {barContent}
+
+              {globalHovered && (
+                <motion.div
+                  className="top-[-5px] left-[0.5px] z-10 absolute flex justify-center items-center w-16 h-4 font-bold text-white text-xs"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {routeObj?.name}
+                </motion.div>
+              )}
+            </Link>
+          ) : (
+            <div key={i} className="relative flex flex-1 justify-center">
+              {barContent}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Animated triangle for active route */}
+      <motion.div
+        className="bottom-[-20px] left-0 absolute bg-white w-2 h-2"
+        animate={{
+          left:
+            activeIndex !== null && parentRef.current
+              ? `${
+                  (parentRef.current.offsetWidth / NUM_BARS) * activeIndex +
+                  parentRef.current.offsetWidth / NUM_BARS / 2 -
+                  1 - // center the triangle
+                  2.5 // offset in px
+                }px`
+              : "0px",
+        }}
+        style={{ clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)" }}
+        transition={{
+          type: "spring",
+          stiffness: 400, // low stiffness → slower movement
+          damping: 50, // high damping → less overshoot
+        }}
+      />
+    </div>
+  );
+}

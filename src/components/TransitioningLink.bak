@@ -1,0 +1,118 @@
+"use client";
+import React from "react";
+import { usePathname, useRouter } from "next/navigation";
+import Link, { LinkProps } from "next/link";
+
+interface TransitioningLinkProps extends LinkProps {
+  children: React.ReactNode;
+  className?: string;
+  handleClick?: () => void;
+  href: string;
+}
+
+const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+const numBlocks = isMobile ? 10 : 20;
+
+export const TransitioningLink = ({ children, href, handleClick, className, ...props }: TransitioningLinkProps) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [isTransitioning, setIsTransitioning] = React.useState(false);
+
+  function sleep(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  const handleTransition = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (pathname === href) return;
+    if (isTransitioning) return;
+    handleClick && handleClick();
+
+    const body = document.querySelector("body");
+    if (body) {
+      setIsTransitioning(true);
+
+      // Create overlay
+      const overlay = document.createElement("div");
+      overlay.className = "overlayMarker fixed inset-0 z-50 pointer-events-none grid";
+      overlay.style.gridTemplateColumns = `repeat(${numBlocks}, 1fr)`;
+
+      body.appendChild(overlay); // Attach overlay to DOM first
+      // Add logo after blocks are created
+      const logo = document.createElement("img");
+      logo.src = "/mainlogo.png";
+      logo.alt = "Logo";
+      logo.style.position = "absolute";
+      logo.style.top = "50%";
+      logo.style.left = "50%";
+      logo.style.transform = "translate(-50%, -50%)";
+      logo.style.width = "240px";
+      logo.style.pointerEvents = "none";
+      logo.style.opacity = "0"; // Start invisible
+      logo.style.transition = "opacity 0.5s cubic-bezier(0.4,0,0.2,1)";
+      logo.style.zIndex = "51";
+
+      body.appendChild(logo);
+
+      for (let i = 0; i < numBlocks; i++) {
+        const block = document.createElement("div");
+        block.className = "h-full bg-background";
+        // Opacity normalization (customize as needed)
+
+        block.style.transformOrigin = "left"; // origin matters here
+        block.style.transform = "scaleX(0)"; // start collapsed
+
+        block.style.transition = "transform 0.5s cubic-bezier(0.4,0,0.2,1)";
+        block;
+        overlay.appendChild(block);
+
+        // Trigger the width animation after a short delay
+        setTimeout(() => {
+          block.style.transform = "scaleX(1)"; // Animate in
+          logo.style.opacity = "1";
+        }, 10);
+      }
+    }
+
+    await sleep(600);
+    router.push(href);
+    await sleep(600);
+
+    // Clean up after navigation
+    if (body) {
+      const overlays = document.querySelectorAll(".overlayMarker");
+      overlays.forEach((overlay) => {
+        // Animate each block's width to 0
+        const blocks = overlay.querySelectorAll("div");
+        blocks.forEach((block) => {
+          block.style.transformOrigin = "right"; // now it actually matters
+          block.style.transform = "scaleX(1)";
+          block.style.transition = "transform 0.5s cubic-bezier(0.4,0,0.2,1)";
+
+          // shrink:
+          block.style.transform = "scaleX(0)";
+        });
+        const logo = document.querySelector("body > img") as HTMLElement;
+        if (logo) {
+          logo.style.opacity = "0";
+          setTimeout(() => {
+            body.removeChild(logo);
+          }, 500);
+        }
+      });
+
+      await sleep(500);
+
+      overlays.forEach((overlay) => {
+        body.removeChild(overlay);
+      });
+      setIsTransitioning(false);
+    }
+  };
+
+  return (
+    <Link className={className} onClick={handleTransition} href={href} {...props}>
+      {children}
+    </Link>
+  );
+};
