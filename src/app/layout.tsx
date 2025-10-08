@@ -6,6 +6,7 @@ import Socials from "../components/Socials";
 import NavbarMobile from "../components/NavbarMobile";
 import Footer from "../components/Footer";
 import PageTransitions from "@/components/PageTransitions";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +32,15 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <head>
         <meta name="google-site-verification" content="KY6hdo-osuhZqgMOiPwDpSu_DyAmoLmn8A9uJ7gdl5E" />
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-DY0VDFQGXL" strategy="afterInteractive" />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-DY0VDFQGXL');
+          `}
+        </Script>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}  antialiased`}>
         <div className="relative bg-background w-full min-h-[100svh]">
