@@ -22,6 +22,8 @@ export const metadata: Metadata = {
   description: "This website depicts the photography portfolio of Siru Bhurtel.",
 };
 
+//small change to trigger redeploy
+
 export default function RootLayout({
   children,
 }: Readonly<{
