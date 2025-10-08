@@ -29,6 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
+      <head>
+        <meta name="google-site-verification" content="KY6hdo-osuhZqgMOiPwDpSu_DyAmoLmn8A9uJ7gdl5E" />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}  antialiased`}>
         <div className="relative bg-background w-full min-h-[100svh]">
           <PageTransitions>{children}</PageTransitions>
