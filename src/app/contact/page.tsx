@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, ChangeEvent } from "react";
 import { MailIcon, PhoneIcon, MapPinIcon } from "lucide-react";
 import Button from "@/components/button";
 import Input from "@/components/input";
@@ -115,8 +115,15 @@ export default function ContactPage() {
   );
 }
 
-// --- Helpers ---
-function InputField({ label, name, value, onChange, type = "text" }: any) {
+interface InputFieldProps {
+  label: string;
+  name: string;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  type?: string;
+}
+
+function InputField({ label, name, value, onChange, type = "text" }: InputFieldProps) {
   return (
     <div>
       <label htmlFor={name} className="block mb-2 font-medium text-primary">
@@ -135,7 +142,15 @@ function InputField({ label, name, value, onChange, type = "text" }: any) {
   );
 }
 
-function TextareaField({ label, name, value, onChange, rows }: any) {
+interface TextareaFieldProps {
+  label: string;
+  name: string;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  rows?: number;
+}
+
+function TextareaField({ label, name, value, onChange, rows }: TextareaFieldProps) {
   return (
     <div>
       <label htmlFor={name} className="block mb-2 font-medium text-primary">
@@ -154,7 +169,13 @@ function TextareaField({ label, name, value, onChange, rows }: any) {
   );
 }
 
-function InfoBlock({ icon: Icon, label, value }: any) {
+interface InfoBlockProps {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  value: string;
+}
+
+function InfoBlock({ icon: Icon, label, value }: InfoBlockProps) {
   return (
     <div>
       <h2 className="mb-2 font-GFS-didot text-primary text-2xl">{label}</h2>

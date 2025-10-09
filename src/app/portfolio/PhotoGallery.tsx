@@ -59,7 +59,6 @@ const GalleryItem = memo(function GalleryItem({ image, onClick }: { image: Galle
   const router = useRouter();
   const pathName = usePathname();
   const searchParams = useSearchParams();
-  const [loading, setLoading] = useState(true);
   function setFileIdParam(fileId: string | null) {
     const params = new URLSearchParams(searchParams.toString());
     if (fileId) {
@@ -81,9 +80,6 @@ const GalleryItem = memo(function GalleryItem({ image, onClick }: { image: Galle
         <img
           src={ikUrl(image.src, "tr=w-700,q-80,fo-auto")}
           alt={image.alt}
-          onLoad={() => {
-            setLoading(false);
-          }}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
@@ -139,7 +135,7 @@ function Lightbox({ images, lightboxRef, lightboxFileId, onClose }: LightboxProp
       // Fallback in case ref not ready
       onClose();
     }
-  }, [onClose, setFileIdParam]);
+  }, [onClose, setFileIdParam, lightboxRef]);
 
   // Animate lightbox
   useEffect(() => {
