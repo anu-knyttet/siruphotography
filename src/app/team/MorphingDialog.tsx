@@ -3,6 +3,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import InstagramIcon from "@/components/icons/instagram";
+import TiktokIcon from "@/components/icons/tiktok";
+import FacebookIcon from "@/components/icons/facebook";
+import YoutubeIcon from "@/components/icons/youtube";
 
 type memberType = {
   id: string;
@@ -10,7 +14,7 @@ type memberType = {
   role: string;
   bio: string;
   image: string;
-  socials: { instagram: string; linkedin: string };
+  socials: { instagram: string; tiktok?: string; facebook?: string; youtube?: string };
 };
 
 export function MorphingCard({ member }: { member: memberType }) {
@@ -59,8 +63,8 @@ export function MorphingCard({ member }: { member: memberType }) {
       ease: "power3.inOut",
     });
 
-    const widthFactor = 1.5;
-    const heightFactor = 1.2;
+    const widthFactor = 1.3;
+    const heightFactor = 1.3;
     const newWidth = cardRect.width * widthFactor;
     const newHeight = cardRect.height * heightFactor;
     const maxWidth = window.innerWidth;
@@ -144,7 +148,7 @@ export function MorphingCard({ member }: { member: memberType }) {
       <div
         ref={cardRef}
         className={cn(
-          "relative flex flex-col items-center bg-background p-6 border aspect-[4/4.5] transition-opacity duration-200 cursor-pointer",
+          "relative flex flex-col items-center bg-background p-6 border rounded-xl aspect-16/15 sm:aspect-[4/5] transition-opacity duration-200 cursor-pointer",
           dialogOpen ? "opacity-0 pointer-events-none" : "opacity-100"
         )}
         onClick={handleOpen}
@@ -166,7 +170,7 @@ export function MorphingCard({ member }: { member: memberType }) {
         ref={overlayRef}
         style={overlayStyle}
         className={cn(
-          "fixed flex flex-col items-center bg-background p-6 border overflow-hidden",
+          "fixed flex flex-col items-center bg-background p-6 border rounded-xl overflow-hidden",
           dialogOpen ? " opacity-100 " : "opacity-0  pointer-events-none transition-opacity duration-500"
         )}
       >
@@ -198,24 +202,30 @@ export function MorphingCard({ member }: { member: memberType }) {
 function CardContent({ member }: { member: memberType }) {
   return (
     <>
-      <div className="bg-gray-200 mb-4 rounded-full w-24 min-w-24 h-24 min-h-24 overflow-hidden">
+      <div className="bg-gray-200 mb-4 rounded-full w-48 min-w-48 h-48 min-h-48 overflow-hidden">
         <img src={member.image} alt={member.name} className="w-full h-full object-cover" loading="lazy" />
       </div>
-      <h2 className="mb-1 font-serif text-primary text-xl">{member.name}</h2>
+      <h2 className="mb-1 font-GFS-didot text-primary text-xl">{member.name}</h2>
       <div className="mb-4 text-accent text-sm">{member.role}</div>
       <div className="bottom-4 left-1/2 absolute flex gap-3 -translate-x-1/2">
         {member.socials.instagram && (
           <a href={member.socials.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <svg className="w-5 h-5 text-primary hover:text-accent" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zm4.25 3.25a5.25 5.25 0 1 1 0 10.5 5.25 5.25 0 0 1 0-10.5zm0 1.5a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5zm5.13.62a1.13 1.13 0 1 1-2.25 0 1.13 1.13 0 0 1 2.25 0z" />
-            </svg>
+            <InstagramIcon fill="#ffe0c2" className="w-5 h-5 text-primary hover:text-accent" />
           </a>
         )}
-        {member.socials.linkedin && (
-          <a href={member.socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-            <svg className="w-5 h-5 text-primary hover:text-accent" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.29c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.29h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z" />
-            </svg>
+        {member.socials.tiktok && (
+          <a href={member.socials.tiktok} target="_blank" rel="noopener noreferrer" aria-label="Tiktok">
+            <TiktokIcon fill="#ffe0c2" className="w-5 h-5 text-primary hover:text-accent" />
+          </a>
+        )}
+        {member.socials.facebook && (
+          <a href={member.socials.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <FacebookIcon fill="#ffe0c2" className="w-5 h-5 text-primary hover:text-accent" />
+          </a>
+        )}
+        {member.socials.youtube && (
+          <a href={member.socials.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <YoutubeIcon fill="#ffe0c2" className="w-5 h-5 hover:text-accent" />
           </a>
         )}
       </div>

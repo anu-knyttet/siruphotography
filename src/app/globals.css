@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=GFS+Didot&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -50,7 +51,8 @@
   --sidebar-accent-foreground: oklch(0.325 0 0);
   --sidebar-border: oklch(0.9401 0 0);
   --sidebar-ring: oklch(0.7731 0 0);
-  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
     "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -101,7 +103,8 @@
   --sidebar-accent-foreground: oklch(0.9674 0.0013 286.3752);
   --sidebar-border: oklch(0.2739 0.0055 286.0326);
   --sidebar-ring: oklch(0.8711 0.0055 286.286);
-  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
     "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -180,29 +183,19 @@
   }
 }
 
-.fade {
-  transform: translateX(0);
-}
-
-::view-transition-old(.fade) {
-  animation: fade-out 300ms ease-in-out forwards;
-}
-
-::view-transition-new(.fade) {
-  animation: fade-in 300ms ease-in-out forwards;
-}
-
-@keyframes fade-out {
-  to {
-    transform: translateX(-100%);
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+    animation-timing-function: ease-in-out;
+  }
+  50% {
+    transform: translateY(-4px); /* adjust amplitude */
+    animation-timing-function: ease-in-out;
   }
 }
 
-@keyframes fade-in {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
+@theme {
+  --animate-floaty: floaty 5s ease-in-out infinite;
+  --font-GFS-didot: "GFS Didot", serif;
 }

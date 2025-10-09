@@ -31,7 +31,9 @@ export default function NavbarMobile() {
   useEffect(() => {
     if (!overlayRef.current || !panelRef.current || !topRef.current || !middleRef.current || !bottomRef.current) return;
 
+    // Disable body scroll when menu is open
     if (isOpen) {
+      document.body.style.overflow = "hidden";
       gsap.to(overlayRef.current, { opacity: 1, duration: 0.3, pointerEvents: "auto" });
       gsap.to(panelRef.current, { x: "0%", duration: 0.5, ease: "power3.out" });
 
@@ -39,6 +41,7 @@ export default function NavbarMobile() {
       gsap.to(middleRef.current, { opacity: 0, duration: 0.3 });
       gsap.to(bottomRef.current, { rotate: -45, y: 0, duration: 0.3, ease: "power3.out" });
     } else {
+      document.body.style.overflow = "";
       gsap.to(overlayRef.current, { opacity: 0, duration: 0.3, pointerEvents: "none" });
       gsap.to(panelRef.current, { x: "100%", duration: 0.5, ease: "power3.in" });
 
@@ -46,6 +49,11 @@ export default function NavbarMobile() {
       gsap.to(middleRef.current, { opacity: 1, duration: 0.3 });
       gsap.to(bottomRef.current, { rotate: 0, y: 8, duration: 0.3, ease: "power3.in" });
     }
+
+    // Clean up: always re-enable scroll on unmount
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
   return (

@@ -1,6 +1,7 @@
 import PhotoGallery from "@/app/portfolio/PhotoGallery";
 
 interface ImageKitFile {
+  fileId: string;
   url: string;
   name?: string;
 }
@@ -13,14 +14,17 @@ async function getImages(category: string) {
   const data = await res.json();
   return data.map((img: ImageKitFile, i: number) => ({
     id: i,
+    fileId: img.fileId,
     src: img.url,
     alt: img.name || `Image ${i + 1}`,
     title: img.name || `Image ${i + 1}`,
   }));
 }
 
-export default async function CategoryPage({ params }: { params: { category: string } }) {
-  const images = await getImages(params.category);
+export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
+  const { category } = await params;
+
+  const images = await getImages(category);
   return (
     <div className="mx-auto px-6 py-20 max-w-7xl">
       <PhotoGallery images={images} />

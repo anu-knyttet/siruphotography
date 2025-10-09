@@ -1,11 +1,12 @@
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-export default function CallToAction() {
+export default function CallToAction({ background = "bg-secondary/30" }: { background?: string }) {
   return (
-    <section className="bg-secondary/30 px-6 py-24">
-      <div className="mx-auto max-w-3xl text-left">
-        <p className="mb-6 font-medium text-primary text-sm uppercase tracking-[0.15em]">Ready to Begin?</p>
-        <h2 className="mb-8 font-serif font-light text-primary text-4xl md:text-5xl text-balance leading-tight">
+    <section className={cn(`${background} px-6 py-24`)}>
+      <div className="mx-auto max-w-3xl text-center">
+        <p className="mb-6 font-medium text-primary text-sm text-center uppercase tracking-[0.15em]">Ready to Begin?</p>
+        <h2 className="mb-8 font-GFS-didot font-light text-primary text-4xl md:text-5xl text-balance leading-tight">
           <p>Let&apos;s create something beautiful</p>
         </h2>
         <p className="mb-10 text-muted-foreground text-lg leading-relaxed">
@@ -14,7 +15,7 @@ export default function CallToAction() {
         </p>
         <div className="text-center active:scale-95 transition duration-150">
           <Link
-            className="hover:bg-primary/10 px-4 py-2 border border-primary w-max text-primary active:scale-95 transition duration-200"
+            className="hover:bg-primary/10 px-4 py-2 border border-primary rounded-xl w-max text-primary active:scale-95 transition duration-200"
             href="/contact"
           >
             Contact Me

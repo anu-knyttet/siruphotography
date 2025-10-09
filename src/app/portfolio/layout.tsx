@@ -14,7 +14,7 @@ export default function PortfolioLayout({ children }: { children: React.ReactNod
             <p className="mb-6 font-medium text-primary text-sm uppercase tracking-[0.2em]">My Work</p>
 
             <div className="flex lg:flex-row flex-col justify-center items-center gap-8 lg:gap-16 mb-8">
-              <h1 className="font-serif font-light text-primary text-4xl md:text-6xl lg:text-7xl text-balance leading-[0.9]">
+              <h1 className="font-GFS-didot text-primary text-4xl md:text-6xl lg:text-7xl text-balance leading-[0.9]">
                 Portfolio
               </h1>
               <div className="w-48 md:w-56 lg:w-64">

@@ -149,7 +149,7 @@ export default function MorphingCard() {
       <div
         ref={cardRef}
         className={cn(
-          "relative flex flex-col items-center bg-background mx-auto mb-2 py-2 border w-48 transition-opacity duration-200 cursor-pointer",
+          "relative flex flex-col items-center bg-background mx-auto mb-2 py-2 border rounded-xl w-48 transition-opacity duration-200 cursor-pointer",
           dialogOpen ? "opacity-0 pointer-events-none" : "opacity-100"
         )}
         onClick={handleOpen}
@@ -169,7 +169,7 @@ export default function MorphingCard() {
         ref={overlayRef}
         style={overlayStyle}
         className={cn(
-          "fixed flex flex-col items-center bg-background py-2 border w-screen overflow-hidden",
+          "fixed flex flex-col items-center bg-background py-2 border rounded-xl w-screen overflow-hidden",
           dialogOpen ? "opacity-100" : "opacity-0 pointer-events-none transition-opacity duration-500"
         )}
       >

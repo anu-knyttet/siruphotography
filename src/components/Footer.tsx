@@ -9,7 +9,7 @@ const Footer: React.FC = () => (
           <Image src={"/mainlogo2.png"} alt="Siru Bhurtel Photography Logo" width={128} height={90} />
         </div>
         <div className="flex flex-col items-center md:items-end">
-          <p className="mt-4 text-primary text-xs">&copy; 2025 anuvette. All rights reserved.</p>
+          <p className="mt-4 text-primary text-xs">&copy;{new Date().getFullYear()} anuvette. All rights reserved.</p>
           <p className="mt-1 text-muted-foreground text-xs">
             Contact:{" "}
             <a href="mailto:anuvette.dev@gmail.com" className="hover:text-primary underline">

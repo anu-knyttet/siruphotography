@@ -28,10 +28,10 @@ export default function NotFound() {
             </div>
 
             {/* 404 Number */}
-            <h1 className="mb-4 font-serif font-light text-primary text-8xl md:text-9xl leading-none">404</h1>
+            <h1 className="mb-4 font-GFS-didot font-light text-primary text-8xl md:text-9xl leading-none">404</h1>
 
             {/* Main Message */}
-            <h2 className="mb-6 font-serif font-light text-primary text-2xl md:text-3xl">
+            <h2 className="mb-6 font-GFS-didot font-light text-primary text-2xl md:text-3xl">
               This shot wasn&apos;t captured
             </h2>
 

@@ -91,27 +91,27 @@ export default function Navbar() {
     });
   }, [hovered, globalHovered]);
 
-  React.useEffect(() => {
-    labelsRef.current.forEach((label) => {
-      if (!label) return;
+  // React.useEffect(() => {
+  //   labelsRef.current.forEach((label) => {
+  //     if (!label) return;
 
-      if (globalHovered) {
-        gsap.to(label, {
-          opacity: 1,
-          y: 5,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-      } else {
-        gsap.to(label, {
-          opacity: 0,
-          y: 0,
-          duration: 0.2,
-          ease: "power2.in",
-        });
-      }
-    });
-  }, [globalHovered]);
+  //     if (globalHovered) {
+  //       gsap.to(label, {
+  //         opacity: 1,
+  //         y: 5,
+  //         duration: 0.3,
+  //         ease: "power2.out",
+  //       });
+  //     } else {
+  //       gsap.to(label, {
+  //         opacity: 0,
+  //         y: 0,
+  //         duration: 0.2,
+  //         ease: "power2.in",
+  //       });
+  //     }
+  //   });
+  // }, [globalHovered]);
 
   function wGaussian(x: number, mu: number, sigma: number, dipStrength = 1) {
     const t = (x - mu) / sigma;
@@ -174,7 +174,7 @@ export default function Navbar() {
                       labelsRef.current[routeIndex] = el;
                     }
                   }}
-                  className="top-[30px] left-4 z-20 absolute flex justify-center items-center opacity-0 w-auto h-4 font-bold text-primary text-xs"
+                  className="top-[50px] left-4 z-20 absolute flex justify-center items-center w-auto h-4 font-bold text-primary text-xs animate-floaty"
                 >
                   {routeObj?.name}
                 </div>

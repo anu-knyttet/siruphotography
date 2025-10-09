@@ -20,7 +20,7 @@ function PackageCard({
 }: PackageCardProps) {
   return (
     <div
-      className={`relative bg-background border  p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group ${
+      className={`relative bg-background border rounded-2xl  p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group ${
         popular ? "border-accent shadow-lg ring-2 ring-accent/20" : "border-border hover:border-accent/50"
       }`}
     >
@@ -31,7 +31,7 @@ function PackageCard({
       )}
 
       <div className="text-center">
-        <h3 className="mb-2 font-serif font-light text-primary text-3xl">{title}</h3>
+        <h3 className="mb-2 font-GFS-didot font-light text-primary text-3xl">{title}</h3>
         <div className="inline-block bg-accent/70 mb-4 px-3 py-1 rounded-full font-medium text-primary/50 text-sm">
           {highlight}
         </div>
@@ -56,7 +56,7 @@ function PackageCard({
 
       <Link
         href={"/contact"}
-        className={`block w-full py-3 px-4  font-medium tracking-wide transition-all duration-300 group-hover:scale-105 ${
+        className={`block w-full py-3 px-4 rounded-xl font-medium tracking-wide transition-all duration-300 group-hover:scale-105 ${
           popular
             ? "bg-accent hover:bg-accent/80 text-primary shadow-md"
             : "bg-accent/20 hover:bg-accent text-primary hover:text-accent-foreground border border-accent/30 hover:border-accent"
@@ -133,7 +133,7 @@ export default function PackagesPage() {
           <div className="mb-8">
             <p className="mb-6 font-medium text-primary text-sm uppercase tracking-[0.15em]">Photography Packages</p>
 
-            <h1 className="mb-8 font-serif font-light text-primary text-4xl md:text-6xl text-balance leading-tight">
+            <h1 className="mb-8 font-GFS-didot font-light text-primary text-4xl md:text-6xl text-balance leading-tight">
               Photography Experiences
             </h1>
 
@@ -168,14 +168,14 @@ export default function PackagesPage() {
       {/* Additional Info */}
       <section className="bg-secondary/30 px-6 py-20">
         <div className="mx-auto max-w-4xl text-center">
-          <h2 className="mb-6 font-serif font-light text-primary text-3xl">Need Something Custom?</h2>
+          <h2 className="mb-6 font-GFS-didot font-light text-primary text-3xl">Need Something Custom?</h2>
           <p className="mb-8 text-muted-foreground text-lg leading-relaxed">
             Don&apos;t see a package that fits your needs? I offer custom photography packages for special occasions,
             commercial projects, and unique creative visions. Let&apos;s discuss your specific requirements.
           </p>
           <Link
             href="/contact"
-            className="hover:bg-primary/10 px-4 py-2 border border-primary w-max text-primary active:scale-95 transition duration-200"
+            className="hover:bg-primary/10 px-4 py-2 border border-primary rounded-xl w-max text-primary active:scale-95 transition duration-200"
           >
             Contact for Custom Quote
           </Link>

@@ -40,7 +40,7 @@ export default function Page() {
       <section className="top-0 sticky flex justify-center items-center bg-background px-6 h-screen">
         <div className="mx-auto max-w-3xl text-center">
           <p className="mb-6 font-medium text-primary text-sm uppercase tracking-[0.15em]">Ready to Begin?</p>
-          <h2 className="mb-8 font-serif font-light text-primary text-4xl md:text-5xl text-balance leading-tight">
+          <h2 className="mb-8 font-GFS-didot font-light text-primary text-4xl md:text-5xl text-balance leading-tight">
             Let&apos;s Create Something Beautiful Together
           </h2>
           <p className="mb-10 text-muted-foreground text-lg leading-relaxed">
@@ -48,7 +48,7 @@ export default function Page() {
             with artistry and care that will be treasured for generations.
           </p>
           <Link
-            className="hover:bg-primary/10 px-4 py-2 border border-primary w-max text-primary active:scale-95 transition duration-200"
+            className="hover:bg-primary/10 px-4 py-2 border border-primary rounded-xl w-max text-primary active:scale-95 transition duration-200"
             href="/contact"
           >
             Contact Me
@@ -140,7 +140,7 @@ const ParallaxCard = ({
           {cta && ctaHref && (
             <Link
               href={ctaHref}
-              className="hover:bg-primary/90 px-4 py-2 border border-primary w-max text-primary hover:text-background active:scale-95 transition duration-500"
+              className="hover:bg-primary/90 px-4 py-2 border border-primary rounded-xl w-max text-primary hover:text-background active:scale-95 transition duration-500"
             >
               {cta}
             </Link>
@@ -170,7 +170,8 @@ export function ParallaxCardSection() {
   return (
     <section className="relative bg-background h-[900svh] overflow-x-clip">
       <ParallaxCard
-        src="https://ik.imagekit.io/siruphotography/maternity/07.webp?updatedAt=1759591951081"
+        // src="https://ik.imagekit.io/siruphotography/maternity/07.webp?updatedAt=1759591951081"
+        src="/LandingHero.webp"
         initialRotation={0}
         initialScale={1}
         exitRotation={5}
@@ -183,7 +184,8 @@ export function ParallaxCardSection() {
         ctaHref="/portfolio"
       />
       <ParallaxCard
-        src="https://ik.imagekit.io/siruphotography/maternity/_DSC0442%20copy.webp?updatedAt=1759591956332"
+        // src="https://ik.imagekit.io/siruphotography/maternity/_DSC0442%20copy.webp?updatedAt=1759591956332"
+        src="/LandingHero2.webp"
         initialRotation={-10}
         initialScale={0.75}
         exitRotation={-5}
@@ -195,7 +197,8 @@ export function ParallaxCardSection() {
         ctaHref="/about"
       />
       <ParallaxCard
-        src="https://ik.imagekit.io/siruphotography/maternity/_DSC0636%20copy.webp?updatedAt=1759591954616"
+        // src="https://ik.imagekit.io/siruphotography/maternity/_DSC0636%20copy.webp?updatedAt=1759591954616"
+        src="/LandingHero3.webp"
         initialRotation={15}
         initialScale={0.65}
         exitRotation={0}

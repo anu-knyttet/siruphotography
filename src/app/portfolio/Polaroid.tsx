@@ -44,33 +44,33 @@ const PolaroidCarousel: React.FC<PolaroidCarouselProps> = ({
   images = [
     {
       id: "1",
-      src: "/Hero1.webp",
-      alt: "Hero 1",
+      src: "/Polaroid/Polaroid5.webp",
+      alt: "Polaroid 1",
       date: "July 2024",
     },
     {
       id: "2",
-      src: "/Hero0.webp",
-      alt: "Hero 2",
+      src: "/Polaroid/Polaroid2.webp",
+      alt: "Polaroid 2",
       date: "June 2024",
     },
     {
       id: "3",
-      src: "/Hero2.webp",
-      alt: "Hero 3",
+      src: "/Polaroid/Polaroid3.webp",
+      alt: "Polaroid 3",
       date: "May 2024",
     },
 
     {
       id: "4",
-      src: "/Hero3.webp",
-      alt: "Hero 3",
+      src: "/Polaroid/Polaroid4.webp",
+      alt: "Polaroid 4",
       date: "March 2024",
     },
     {
       id: "5",
-      src: "/Hero4.webp",
-      alt: "Hero 4",
+      src: "/Polaroid/Polaroid1.webp",
+      alt: "Polaroid 5",
       date: "April 2025",
     },
   ],
@@ -142,10 +142,9 @@ const PolaroidCarousel: React.FC<PolaroidCarouselProps> = ({
                 <Image
                   src={image.src}
                   alt={image.alt}
-                  width={400}
-                  height={300}
+                  width={800}
+                  height={600}
                   className="w-full h-60 sm:h-72 object-cover"
-                  sizes="(max-width: 640px) 100vw, 24rem"
                 />
               </div>
             </div>
