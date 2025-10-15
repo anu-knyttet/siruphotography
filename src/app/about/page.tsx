@@ -1,6 +1,12 @@
 import Image from "next/image";
 import CallToAction from "../../components/CallToAction";
 
+export const metadata = {
+  title: "About - Siru Photography",
+  description:
+    "Learn more about Siru Bhurtel, a passionate portrait photographer specializing in newborn, maternity, and family photography.",
+};
+
 export default function AboutPage() {
   return (
     <main className="bg-background min-h-screen text-foreground">

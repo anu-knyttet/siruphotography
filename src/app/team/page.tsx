@@ -2,6 +2,11 @@ import { MorphingCard } from "./MorphingDialog";
 import Image from "next/image";
 import CallToAction from "../../components/CallToAction";
 
+export const metadata = {
+  title: "Team - Siru Photography",
+  description: "Meet the dedicated team behind Siru Photography, bringing your moments to life.",
+};
+
 const mockTeam = [
   {
     id: "1",

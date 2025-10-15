@@ -1,6 +1,11 @@
 import Link from "next/link";
 import React from "react";
 
+export const metadata = {
+  title: "Packages - Siru Photography",
+  description: "Explore photography packages tailored for portraits, families, events, and more.",
+};
+
 interface PackageCardProps {
   title: string;
   description: string;

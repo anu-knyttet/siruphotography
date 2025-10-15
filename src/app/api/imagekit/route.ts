@@ -9,7 +9,12 @@ const imagekit = new ImageKit({
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const folder = searchParams.get("folder") || "family"; // default to 'family'
+  const folder = searchParams.get("folder");
+
+  if (!folder) {
+    // Return empty array or 204 No Content if folder param is missing
+    return NextResponse.json([]);
+  }
 
   try {
     const files = await imagekit.listFiles({

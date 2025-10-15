@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Lenis from "lenis";
 import { cn } from "@/lib/utils";
+import { ChevronDownIcon, ChevronsDownIcon, MouseIcon } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -149,17 +150,11 @@ const ParallaxCard = ({
       </div>
       {/* Scroll Down Indicator (only on first card) */}
       {showScrollIndicator && (
-        <div className="bottom-16 sm:bottom-32 left-1/2 z-30 absolute flex flex-col items-center -translate-x-1/2 pointer-events-none select-none">
-          <span className="font-semibold text-primary text-lg animate-bounce">Scroll Down</span>
-          <svg
-            className="mt-1 w-6 h-6 text-primary animate-bounce"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
+        <div className="bottom-16 sm:bottom-32 left-1/2 z-30 absolute flex flex-col items-center -translate-x-1/2 animate-bounce pointer-events-none select-none">
+          <span className="font-semibold text-primary text-lg">
+            <MouseIcon />
+          </span>
+          <ChevronsDownIcon className="w-6 h-6 text-primary" />
         </div>
       )}
     </div>
@@ -274,7 +269,7 @@ const ZoomParallax = () => {
             }}
             className="top-0 absolute flex justify-center items-center w-full h-full"
           >
-            <div className="absolute w-[33.33vw] h-[33.33vh]" style={{ top, left }}>
+            <div className="absolute w-[33.33vw] h-[33.33vh] will-change-transform" style={{ top, left }}>
               <Image src={src} alt={alt} fill className="object-cover" priority />
             </div>
           </div>
@@ -385,7 +380,7 @@ export function TestimonialSection() {
             ref={(el) => {
               cardRefs.current[i] = el;
             }}
-            className="absolute flex flex-col justify-between bg-background/50 shadow-md backdrop-blur-md p-8 rounded-[25px] w-[300px] sm:w-[350px] h-[350px] sm:h-[450px] text-white"
+            className="absolute flex flex-col justify-between bg-background/50 shadow-md backdrop-blur-md p-8 rounded-[25px] w-[300px] sm:w-[350px] h-[350px] sm:h-[450px] text-white will-change-transform"
             style={{
               top: "50%",
               left: "50%",

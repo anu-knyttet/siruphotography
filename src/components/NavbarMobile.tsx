@@ -15,6 +15,7 @@ const barRoutes: { route: string; name: string }[] = [
   { route: "/team", name: "Team" },
   { route: "/portfolio/recent", name: "Recent" },
   { route: "/contact", name: "Contact" },
+  { route: "/courses", name: "Courses" },
 ];
 
 export default function NavbarMobile() {

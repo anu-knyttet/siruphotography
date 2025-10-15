@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
 
   await resend.emails.send({
     from: "onboarding@resend.dev",
-    to: "anuvette.dev@gmail.com",
+    to: "srijanabhurtel@gmail.com",
     subject: `New message from ${name}`,
     text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
   });

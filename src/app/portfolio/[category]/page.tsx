@@ -1,5 +1,13 @@
 import PhotoGallery from "@/app/portfolio/PhotoGallery";
 
+export async function generateMetadata({ params }: { params: { category: string } }) {
+  const category = params.category;
+  return {
+    title: `${category.charAt(0).toUpperCase() + category.slice(1)} Portfolio - Siru Photography`,
+    description: `Explore the ${category} photography portfolio by Siru Bhurtel.`,
+  };
+}
+
 interface ImageKitFile {
   fileId: string;
   url: string;

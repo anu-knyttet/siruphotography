@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { gsap } from "gsap";
@@ -14,43 +14,44 @@ const barRoutes: { route: string; name: string; index: number }[] = [
   { route: "/team", name: "Team", index: 40 },
   { route: "/portfolio/recent", name: "Recent", index: 50 },
   { route: "/contact", name: "Contact", index: 60 },
+  { route: "/courses", name: "Courses", index: 70 },
 ];
 
 export default function Navbar() {
-  const NUM_BARS = 61;
-  const [hovered, setHovered] = React.useState<number | null>(null);
-  const [globalHovered, setGlobalHovered] = React.useState<boolean>(false);
-  const maxEssential = 1.8;
-  const maxNonEssential = 2.5;
+  const NUM_BARS = 71;
+  const [hovered, setHovered] = useState<number | null>(null);
+  const [globalHovered, setGlobalHovered] = useState<boolean>(false);
+  const maxEssential = 1.2;
+  const maxNonEssential = 1.8;
   const pathName = usePathname();
   // Find the best matching route based on path prefix (supports nested routes)
-  const activeIndex = React.useMemo(() => {
+  const activeIndex = useMemo(() => {
     // Sort routes by length (longest first) to find the most specific match
     const sortedRoutes = barRoutes.sort((a, b) => b.route.length - a.route.length);
     const matchingRoute = sortedRoutes.find((route) => pathName.startsWith(route.route));
     return matchingRoute?.index ?? null;
   }, [pathName]);
-  const parentRef = React.useRef<HTMLDivElement>(null);
-  const barsRef = React.useRef<(SVGLineElement | null)[]>([]);
-  const triangleRef = React.useRef<HTMLDivElement>(null);
-  const labelsRef = React.useRef<(HTMLDivElement | null)[]>([]);
-  const [trianglePosition, setTrianglePosition] = React.useState<string>("0px");
+  const parentRef = useRef<HTMLDivElement>(null);
+  const barsRef = useRef<(SVGLineElement | null)[]>([]);
+  const triangleRef = useRef<HTMLDivElement>(null);
+  const labelsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const [trianglePosition, setTrianglePosition] = useState<string>("0px");
 
-  React.useEffect(() => {
-    if (activeIndex !== null && parentRef.current) {
-      const position = `${
-        (parentRef.current.offsetWidth / NUM_BARS) * activeIndex +
-        parentRef.current.offsetWidth / NUM_BARS / 2 -
-        1 - // center the triangle
-        3.5 // offset in px
-      }px`;
-      setTrianglePosition(position);
+  useEffect(() => {
+    if (activeIndex !== null && parentRef.current && triangleRef.current) {
+      const parentWidth = parentRef.current.offsetWidth;
+      const barWidth = parentWidth / NUM_BARS;
+      const triangleWidth = triangleRef.current.offsetWidth;
+
+      const position = barWidth * activeIndex + barWidth / 2 - triangleWidth / 2;
+
+      setTrianglePosition(`${position}px`);
     } else {
       setTrianglePosition("0px");
     }
   }, [activeIndex, pathName]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (triangleRef.current) {
       gsap.to(triangleRef.current, {
         left: trianglePosition,
@@ -60,7 +61,7 @@ export default function Navbar() {
     }
   }, [trianglePosition]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     barsRef.current.forEach((bar, i) => {
       if (!bar) return;
 
@@ -91,28 +92,6 @@ export default function Navbar() {
     });
   }, [hovered, globalHovered]);
 
-  // React.useEffect(() => {
-  //   labelsRef.current.forEach((label) => {
-  //     if (!label) return;
-
-  //     if (globalHovered) {
-  //       gsap.to(label, {
-  //         opacity: 1,
-  //         y: 5,
-  //         duration: 0.3,
-  //         ease: "power2.out",
-  //       });
-  //     } else {
-  //       gsap.to(label, {
-  //         opacity: 0,
-  //         y: 0,
-  //         duration: 0.2,
-  //         ease: "power2.in",
-  //       });
-  //     }
-  //   });
-  // }, [globalHovered]);
-
   function wGaussian(x: number, mu: number, sigma: number, dipStrength = 1) {
     const t = (x - mu) / sigma;
     const g = Math.exp(-0.5 * t * t);
@@ -122,7 +101,7 @@ export default function Navbar() {
 
   return (
     <div className="relative transition-all">
-      <div className="bottom-0 left-1/2 fixed bg-gradient-to-r from-black/40 via-black/70 to-black/40 w-full h-24 -translate-x-1/2 pointer-events-none" />
+      <div className="bottom-0 left-1/2 fixed bg-gradient-to-r from-black/40 via-black to-black/40 w-full h-24 -translate-x-1/2 pointer-events-none" />
       <div
         className="bottom-8 left-8 sm:left-1/2 z-100 fixed flex flex-col justify-between items-end gap-4 w-84 sm:w-128 h-24 sm:-translate-x-1/2"
         ref={parentRef}
@@ -141,7 +120,7 @@ export default function Navbar() {
                 onMouseLeave={() => setHovered(null)}
               >
                 <svg
-                  width="2"
+                  width="1"
                   height="100%"
                   viewBox="0 0 2 100"
                   preserveAspectRatio="none"
@@ -152,7 +131,7 @@ export default function Navbar() {
                       barsRef.current[i] = el;
                     }}
                     x1="1"
-                    y1={i % 10 === 0 ? 60 : 80}
+                    y1={i % 10 === 0 ? 80 : 90}
                     x2="1"
                     y2="100"
                     stroke="#ffe0c2"
@@ -174,7 +153,7 @@ export default function Navbar() {
                       labelsRef.current[routeIndex] = el;
                     }
                   }}
-                  className="top-[50px] left-4 z-20 absolute flex justify-center items-center w-auto h-4 font-bold text-primary text-xs animate-floaty"
+                  className="top-[40px] left-1/2 z-20 absolute flex justify-center items-center w-auto h-4 font-medium text-primary text-xs -translate-x-1/2"
                 >
                   {routeObj?.name}
                 </div>
@@ -189,8 +168,8 @@ export default function Navbar() {
 
         <div
           ref={triangleRef}
-          className="bottom-[-20px] left-0 absolute bg-primary w-2 h-2"
-          style={{ clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)" }}
+          className="top-[60px] left-0 absolute bg-primary w-2 h-2"
+          style={{ clipPath: "polygon(50% 100%, 0% 0%, 100% 0%)" }}
         />
       </div>
     </div>

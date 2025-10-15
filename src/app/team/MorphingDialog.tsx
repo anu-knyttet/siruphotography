@@ -41,6 +41,7 @@ export function MorphingCard({ member }: { member: memberType }) {
       zIndex: 50,
     });
     setDialogOpen(true);
+    document.body.style.overflow = "hidden";
   };
 
   // Morph animation with GSAP timeline (runs after overlay is rendered)
@@ -64,7 +65,7 @@ export function MorphingCard({ member }: { member: memberType }) {
     });
 
     const widthFactor = 1.3;
-    const heightFactor = 1.3;
+    const heightFactor = 1.32;
     const newWidth = cardRect.width * widthFactor;
     const newHeight = cardRect.height * heightFactor;
     const maxWidth = window.innerWidth;
@@ -104,7 +105,10 @@ export function MorphingCard({ member }: { member: memberType }) {
   const handleClose = useCallback(() => {
     if (!cardRect) return;
     const tl = gsap.timeline({
-      onComplete: () => setDialogOpen(false),
+      onComplete: () => {
+        setDialogOpen(false);
+        document.body.style.overflow = "auto";
+      },
     });
 
     tl.to(contentRef.current, {
