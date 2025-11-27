@@ -87,7 +87,6 @@ export default function HomeClient({ imagesToPreload }: { imagesToPreload: strin
 
     return () => {
       tl.kill();
-      tl = null as any;
     };
   }, [ready]);
 
