@@ -21,8 +21,8 @@ export default function Navbar() {
   const NUM_BARS = 71;
   const [hovered, setHovered] = useState<number | null>(null);
   const [globalHovered, setGlobalHovered] = useState<boolean>(false);
-  const maxEssential = 1.2;
-  const maxNonEssential = 1.8;
+  const maxEssential = 1.3;
+  const maxNonEssential = 2;
   const pathName = usePathname();
   // Find the best matching route based on path prefix (supports nested routes)
   const activeIndex = useMemo(() => {
@@ -35,7 +35,7 @@ export default function Navbar() {
   const barsRef = useRef<(SVGLineElement | null)[]>([]);
   const triangleRef = useRef<HTMLDivElement>(null);
   const labelsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const [trianglePosition, setTrianglePosition] = useState<string>("0px");
+  const [trianglePosition, setTrianglePosition] = useState<number>(0);
 
   useEffect(() => {
     if (activeIndex !== null && parentRef.current && triangleRef.current) {
@@ -45,16 +45,16 @@ export default function Navbar() {
 
       const position = barWidth * activeIndex + barWidth / 2 - triangleWidth / 2;
 
-      setTrianglePosition(`${position}px`);
+      setTrianglePosition(position);
     } else {
-      setTrianglePosition("0px");
+      setTrianglePosition(0);
     }
   }, [activeIndex, pathName]);
 
   useEffect(() => {
     if (triangleRef.current) {
       gsap.to(triangleRef.current, {
-        left: trianglePosition,
+        x: trianglePosition,
         duration: 0.8,
         ease: "circ.out",
       });
@@ -101,9 +101,9 @@ export default function Navbar() {
 
   return (
     <div className="relative transition-all">
-      <div className="bottom-0 left-1/2 fixed bg-gradient-to-r from-black/40 via-black to-black/40 w-full h-24 -translate-x-1/2 pointer-events-none" />
+      <div className="bottom-6 left-1/2 fixed bg-gradient-to-r from-black/5 via-black to-black/5 w-full h-20 -translate-x-1/2 pointer-events-none" />
       <div
-        className="bottom-8 left-8 sm:left-1/2 z-100 fixed flex flex-col justify-between items-end gap-4 w-84 sm:w-128 h-24 sm:-translate-x-1/2"
+        className="bottom-8 left-8 sm:left-1/2 z-100 fixed flex flex-col justify-between items-end gap-4 w-84 sm:w-128 h-16 sm:-translate-x-1/2"
         ref={parentRef}
         onMouseEnter={() => setGlobalHovered(true)}
         onMouseLeave={() => setGlobalHovered(false)}
@@ -131,7 +131,7 @@ export default function Navbar() {
                       barsRef.current[i] = el;
                     }}
                     x1="1"
-                    y1={i % 10 === 0 ? 80 : 90}
+                    y1={i % 10 === 0 ? 75 : 85}
                     x2="1"
                     y2="100"
                     stroke="#ffe0c2"
@@ -153,7 +153,7 @@ export default function Navbar() {
                       labelsRef.current[routeIndex] = el;
                     }
                   }}
-                  className="top-[40px] left-1/2 z-20 absolute flex justify-center items-center w-auto h-4 font-medium text-primary text-xs -translate-x-1/2"
+                  className="top-[0px] left-1/2 z-20 absolute flex justify-center items-center w-auto h-4 font-medium text-primary text-xs -translate-x-1/2"
                 >
                   {routeObj?.name}
                 </div>
@@ -168,7 +168,7 @@ export default function Navbar() {
 
         <div
           ref={triangleRef}
-          className="top-[60px] left-0 absolute bg-primary w-2 h-2"
+          className="top-[25px] left-0 absolute bg-primary w-2 h-2"
           style={{ clipPath: "polygon(50% 100%, 0% 0%, 100% 0%)" }}
         />
       </div>
