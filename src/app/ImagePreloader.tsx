@@ -66,7 +66,7 @@ export default function HomeClient({ imagesToPreload }: { imagesToPreload: strin
   // fade out preloader and fade in content using GSAP
   useEffect(() => {
     if (!ready) return;
-    let tl = gsap.timeline({
+    const tl = gsap.timeline({
       onComplete: () => {
         setShowPreloader(false);
       },
