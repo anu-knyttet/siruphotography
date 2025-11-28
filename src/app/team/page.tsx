@@ -12,7 +12,7 @@ const mockTeam = [
     id: "1",
     name: "Siru Bhurtel",
     role: "Lead Photographer",
-    bio: "Siru specializes in portrait and event photography, capturing moments with a creative eye.",
+    bio: ["Portrait & newborn photography", "Natural lighting & composition", "Studio & outdoor shoot expertise"],
     image: "/team/sirubhurtel.jpg",
     socials: {
       instagram: "https://www.instagram.com/siru_bhurtel_babyphotography/",
@@ -25,8 +25,8 @@ const mockTeam = [
     id: "2",
     name: "Mandira Rai",
     role: "Assistant Photographer",
-    bio: "Ava brings energy and technical skill to every shoot, ensuring smooth sessions.",
-    image: "https://randomuser.me/api/portraits/women/44.jpg",
+    bio: ["Camera handling & setup", "Lighting & exposure optimization", "Fast-paced session support"],
+    image: "/team/mandirarai.jpg",
     socials: {
       instagram: "https://www.instagram.com/siru_bhurtel_babyphotography/",
       facebook: "https://www.facebook.com/bhurtel.siru",
@@ -37,9 +37,9 @@ const mockTeam = [
   {
     id: "3",
     name: "Ruby Poudel",
-    role: "Lighting Specialist",
-    bio: "Liam crafts perfect lighting setups for both studio and outdoor shoots.",
-    image: "https://randomuser.me/api/portraits/women/65.jpg",
+    role: "Makeup Artist",
+    bio: ["Camera-ready makeup", "Newborn & family shoots", "Studio & on-location styling"],
+    image: "/team/rubypoudel.webp",
     socials: {
       instagram: "https://www.instagram.com/siru_bhurtel_babyphotography/",
       facebook: "https://www.facebook.com/bhurtel.siru",

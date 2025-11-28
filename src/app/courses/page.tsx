@@ -6,6 +6,8 @@ type ImageKitFile = {
   fileId: string;
   name: string;
   url: string;
+  width: number;
+  height: number;
 };
 
 export const metadata = {
@@ -23,6 +25,8 @@ async function getCourses() {
     id: img.fileId,
     title: img.name || `Course ${i + 1}`,
     image: img.url,
+    width: img.width,
+    height: img.height,
   }));
 }
 

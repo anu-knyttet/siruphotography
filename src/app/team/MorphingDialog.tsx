@@ -12,7 +12,7 @@ type memberType = {
   id: string;
   name: string;
   role: string;
-  bio: string;
+  bio: string[];
   image: string;
   socials: { instagram: string; tiktok?: string; facebook?: string; youtube?: string };
 };
@@ -65,7 +65,7 @@ export function MorphingCard({ member }: { member: memberType }) {
     });
 
     const widthFactor = 1.3;
-    const heightFactor = 1.32;
+    const heightFactor = 1.2;
     const newWidth = cardRect.width * widthFactor;
     const newHeight = cardRect.height * heightFactor;
     const maxWidth = window.innerWidth;
@@ -188,15 +188,10 @@ export function MorphingCard({ member }: { member: memberType }) {
         </button>
 
         <CardContent member={member} />
-        {/* Optionally fade in extra dialog content here */}
         <div ref={contentRef} className="opacity-0 mb-3 text-muted-foreground text-sm text-center">
-          {
-            <>
-              <div>• Passionate about capturing candid moments and authentic smiles.</div>
-              <div>• Loves experimenting with lighting and creative angles.</div>
-              <div>• Always ready to lend a hand and keep the energy high on set.</div>
-            </>
-          }
+          {member.bio.map((point, i) => (
+            <div key={i}>• {point}</div>
+          ))}
         </div>
       </div>
     </>
@@ -206,11 +201,11 @@ export function MorphingCard({ member }: { member: memberType }) {
 function CardContent({ member }: { member: memberType }) {
   return (
     <>
-      <div className="bg-gray-200 mb-4 rounded-full w-48 min-w-48 h-48 min-h-48 overflow-hidden">
+      <div className="bg-gray-200 mb-4 border border-primary rounded-full w-48 min-w-48 h-48 min-h-48 overflow-hidden">
         <img src={member.image} alt={member.name} className="w-full h-full object-cover" loading="lazy" />
       </div>
       <h2 className="mb-1 font-GFS-didot text-primary text-xl">{member.name}</h2>
-      <div className="mb-4 text-accent text-sm">{member.role}</div>
+      <div className="mb-4 text-muted-foreground text-sm">{member.role}</div>
       <div className="bottom-4 left-1/2 absolute flex gap-3 -translate-x-1/2">
         {member.socials.instagram && (
           <a href={member.socials.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">

@@ -28,7 +28,7 @@ const socials = [
 ];
 
 const Socials: React.FC = () => (
-  <div className="hidden sm:blockjustify-center sm:right-4 sm:bottom-0 sm:fixed sm:flex sm:flex-col sm:items-center sm:gap-4">
+  <div className="hidden sm:right-4 sm:bottom-0 sm:fixed sm:flex sm:flex-col sm:items-center sm:gap-4 sm:blockjustify-center">
     {socials.map((social) => (
       <a
         key={social.name}
@@ -42,7 +42,7 @@ const Socials: React.FC = () => (
       </a>
     ))}
     <svg width="1" height="80" className="text-primary">
-      <line x1="0.5" y1="0" x2="0.5" y2="80" stroke="currentColor" strokeWidth="1" />
+      <line x1="0.5" y1="0" x2="0.5" y2="80" stroke="currentColor" strokeWidth="0.5" />
     </svg>
   </div>
 );

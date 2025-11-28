@@ -1,7 +1,8 @@
 import PhotoGallery from "@/app/portfolio/PhotoGallery";
 
-export async function generateMetadata({ params }: { params: { category: string } }) {
-  const category = params.category;
+export async function generateMetadata({ params }: { params: Promise<{ category: string }> }) {
+  const param = await params;
+  const category = param.category;
   return {
     title: `${category.charAt(0).toUpperCase() + category.slice(1)} Portfolio - Siru Photography`,
     description: `Explore the ${category} photography portfolio by Siru Bhurtel.`,

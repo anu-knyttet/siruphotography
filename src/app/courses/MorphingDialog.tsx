@@ -3,11 +3,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 type courseType = {
   id: string;
   title: string;
   image: string;
+  height: number;
+  width: number;
 };
 
 export function MorphingCard({ course }: { course: courseType }) {
@@ -164,8 +167,11 @@ export function MorphingCard({ course }: { course: courseType }) {
 
 function CardContent({ course }: { course: courseType }) {
   return (
-    <div className="relative w-full h-full overflow-hidden">
-      <img src={course.image} alt={course.title} className="w-full h-full object-contain" loading="lazy" />
+    <div
+      className="relative bg-muted w-full overflow-hidden" // simple grey background
+      style={{ aspectRatio: `${course.width} / ${course.height}` }}
+    >
+      <img src={course.image} alt={course.title} className="w-full h-full object-contain" />
     </div>
   );
 }

@@ -213,13 +213,13 @@ function Lightbox({ images, lightboxRef, lightboxFileId, onClose }: LightboxProp
 
       {/* Navigation */}
       <button
-        className="top-1/2 left-4 z-10 absolute bg-primary/30 hover:bg-primary/40 p-1 rounded-full text-primary -translate-y-1/2"
+        className="top-1/2 left-4 z-20 absolute bg-primary/30 hover:bg-primary/40 p-1 rounded-full text-primary -translate-y-1/2"
         onClick={goToPrevious}
       >
         <ChevronLeft className="w-8 h-8" />
       </button>
       <button
-        className="top-1/2 right-4 z-10 absolute bg-primary/30 hover:bg-primary/40 p-1 rounded-full text-primary -translate-y-1/2"
+        className="top-1/2 right-4 z-20 absolute bg-primary/30 hover:bg-primary/40 p-1 rounded-full text-primary -translate-y-1/2"
         onClick={goToNext}
       >
         <ChevronRight className="w-8 h-8" />

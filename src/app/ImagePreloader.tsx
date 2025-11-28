@@ -6,14 +6,20 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Lenis from "lenis";
 import { cn } from "@/lib/utils";
-import { ChevronsDownIcon, MouseIcon } from "lucide-react";
 import { GFS_Didot } from "next/font/google";
+import { Manrope } from "next/font/google";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const fontGFSDidot = GFS_Didot({
   subsets: ["latin"],
   weight: "400",
+  display: "swap",
+});
+
+export const fontManrope = Manrope({
+  subsets: ["latin"],
+  weight: ["200"],
   display: "swap",
 });
 
@@ -115,28 +121,25 @@ export default function HomeClient({ imagesToPreload }: { imagesToPreload: strin
 
   return (
     <>
-      {/* Preloader (non-modal, small, centered) */}
       {showPreloader && (
         <div
           ref={preloaderRef}
-          className="top-1/2 left-1/2 z-[9999] fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-          style={{ opacity: 1 }}
+          className="z-[9999] fixed inset-0 flex flex-col justify-center items-center bg-background"
         >
-          <div className="flex flex-col items-center gap-3 bg-transparent">
-            <div className="flex justify-center items-center bg-background/80 shadow-md p-2 rounded-md">
-              <img src="/mainlogo2.png" alt="Main logo" className="w-[240px]" />
-            </div>
+          {/* Logo wrapper */}
+          <div className="flex justify-center items-center p-2 rounded-md">
+            <img src="/mainlogo2.png" alt="Main logo" className="w-[240px]" />
+          </div>
 
-            {/* Minimal progress meter: grey track (bg-secondary) with gold fill (bg-primary) */}
-            <div
-              role="progressbar"
-              aria-valuemin={0}
-              aria-valuemax={100}
-              aria-valuenow={pct}
-              className="bg-secondary w-40 h-[1px] overflow-hidden"
-            >
-              <div className="bg-primary h-full transition-all duration-300 ease-out" style={{ width: `${pct}%` }} />
-            </div>
+          {/* Minimal progress meter */}
+          <div
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={pct}
+            className="bg-secondary mt-6 w-40 h-[1px] overflow-hidden"
+          >
+            <div className="bg-primary h-full transition-all duration-300 ease-out" style={{ width: `${pct}%` }} />
           </div>
         </div>
       )}
@@ -226,6 +229,30 @@ const ParallaxCard = ({
     };
   }, [initialScale, initialRotation, exitScale, exitRotation]);
 
+  const lineRef = useRef<SVGSVGElement>(null);
+
+  useEffect(() => {
+    if (!lineRef.current) return;
+
+    const tl = gsap.timeline({ repeat: -1 }); // repeat indefinitely and reverse
+
+    tl.fromTo(
+      lineRef.current,
+      { scaleY: 0 },
+      { scaleY: 1, duration: 0.8, transformOrigin: "top center", ease: "power1.inOut" }
+    );
+
+    tl.fromTo(
+      lineRef.current,
+      { scaleY: 1 },
+      { scaleY: 0, duration: 0.8, transformOrigin: "bottom center", ease: "power1.inOut" }
+    );
+
+    return () => {
+      tl.kill();
+    };
+  }, []);
+
   return (
     <div ref={cardRef} className="top-0 sticky flex flex-col items-center h-screen">
       <Image
@@ -243,27 +270,45 @@ const ParallaxCard = ({
         )}
       >
         <div className="max-w-full sm:max-w-lg md:max-w-xl text-left">
-          <h1 className="drop-shadow-lg mb-3 font-extrabold text-primary text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="drop-shadow-lg mb-3 font-extrabold text-primary text-3xl md:text-4xl lg:text-5xl">
             {heading}
           </h1>
-          <p className="mb-6 text-primary/90 text-xl md:text-2xl leading-relaxed">{subheading}</p>
+          <p className="mb-6 text-foreground md:text-lg leading-relaxed">{subheading}</p>
           {cta && ctaHref && (
-            <Link
-              href={ctaHref}
-              className="hover:bg-primary/90 px-4 py-2 border border-primary rounded-xl w-max text-primary hover:text-background active:scale-95 transition duration-500"
-            >
-              {cta}
+            <Link href={ctaHref}>
+              <span className="inline-block hover:bg-primary/90 px-4 py-2 border border-primary rounded-xl w-max text-primary hover:text-background active:scale-95 transition duration-600">
+                {cta}
+              </span>
             </Link>
           )}
         </div>
       </div>
       {/* Scroll Down Indicator (only on first card) */}
       {showScrollIndicator && (
-        <div className="bottom-16 sm:bottom-32 left-1/2 z-30 absolute flex flex-col items-center -translate-x-1/2 animate-bounce pointer-events-none select-none">
-          <span className="font-semibold text-primary text-lg">
-            <MouseIcon />
+        <div className="right-2 sm:right-auto bottom-0 sm:left-2 z-30 absolute flex flex-col items-center pointer-events-none select-none">
+          <span
+            className={`font-extralight ${fontManrope.className} text-primary text-lg`}
+            style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
+          >
+            S C R O L L
           </span>
-          <ChevronsDownIcon className="w-6 h-6 text-primary" />
+          <svg
+            ref={lineRef}
+            className="mt-2 w-[1px] h-32"
+            width="1"
+            height="128" // 24 * 4px if using tailwind default spacing
+            viewBox="0 0 1 128"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="0.5" // center of 1px width
+              y1="0"
+              x2="0.5"
+              y2="128"
+              stroke="#ffe0c2"
+              strokeWidth="0.5"
+            />
+          </svg>
         </div>
       )}
     </div>
@@ -283,7 +328,7 @@ export function ParallaxCardSection() {
         position="left"
         showScrollIndicator
         heading="Moments That Matter"
-        subheading="From the first smile to the last embrace, every moment is a memory worth cherishing."
+        subheading="Every moment is a memory worth cherishing."
         cta="View Portfolio"
         ctaHref="/portfolio"
       />
@@ -296,7 +341,7 @@ export function ParallaxCardSection() {
         exitScale={0.75}
         position="right"
         heading="Artistry in Every Frame"
-        subheading="Photography is more than pictures—it's the art of telling your story with light, color, and emotion."
+        subheading="The art of telling your story with light, color, and emotion."
         cta="Meet the Artist"
         ctaHref="/about"
       />
@@ -309,7 +354,7 @@ export function ParallaxCardSection() {
         exitScale={0.55}
         position="left"
         heading="Your Legacy, Captured"
-        subheading="Let’s create timeless images that your family will treasure for generations."
+        subheading="Create timeless images that your family will treasure for eternity."
         cta="Book a Session"
         ctaHref="/contact"
       />
@@ -362,10 +407,10 @@ const ZoomParallax = () => {
       <div className="top-0 sticky h-screen overflow-hidden">
         {/* Overlay Text */}
         <div className="z-20 absolute inset-0 flex flex-col justify-center items-center pointer-events-none">
-          <h2 className="drop-shadow-lg mb-4 font-bold text-primary text-4xl md:text-6xl text-center">
+          <h2 className="drop-shadow-lg mb-4 font-bold text-primary text-3xl md:text-4xl lg:text-5xl text-center">
             See the World in Every Moment
           </h2>
-          <p className="drop-shadow max-w-2xl text-primary/90 text-lg md:text-2xl text-center">
+          <p className="drop-shadow max-w-2xl text-md text-primary/90 md:text-lg text-center">
             Each image is a window into a unique story. Enjoy the vibrant tapestry of life as you scroll through our
             gallery.
           </p>

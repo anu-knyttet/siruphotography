@@ -143,7 +143,13 @@ export default function Navbar() {
             );
 
             return routeObj ? (
-              <Link key={i} href={routeObj.route} className="relative flex flex-1 justify-center">
+              <Link
+                key={i}
+                href={routeObj.route}
+                className="relative flex flex-1 justify-center"
+                onMouseEnter={() => setHovered(i)}
+                onMouseLeave={() => setHovered(null)}
+              >
                 {barContent}
 
                 <div
