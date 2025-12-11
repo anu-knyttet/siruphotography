@@ -254,7 +254,7 @@ const ParallaxCard = ({
   }, []);
 
   return (
-    <div ref={cardRef} className="top-0 sticky flex flex-col items-center h-screen">
+    <div ref={cardRef} className="top-0 sticky flex flex-col items-center h-screen will-change-transform">
       <Image
         src={src}
         alt="Background"
@@ -294,9 +294,9 @@ const ParallaxCard = ({
           </span>
           <svg
             ref={lineRef}
-            className="mt-2 w-[1px] h-32"
+            className="mt-2 w-[1px] h-32 will-change-transform"
             width="1"
-            height="128" // 24 * 4px if using tailwind default spacing
+            height="128"
             viewBox="0 0 1 128"
             xmlns="http://www.w3.org/2000/svg"
           >

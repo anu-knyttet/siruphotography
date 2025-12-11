@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     siteName: "Siru Photography",
     images: [
       {
-        url: "https://sirubhurtel.com/embedlogo.png", // <-- put your nice 1200x630 image here
+        url: "https://sirubhurtel.com/embedlogo.png",
         width: 1200,
         height: 630,
         alt: "Siru Photography Portfolio",
